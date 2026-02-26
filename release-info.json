@@ -4,5 +4,10 @@
     "requires_php": "7.4",
     "tested": "6.9.1"
   },
-  "versions": []
+  "versions": [
+    {
+      "version": "1.0.0-rc1",
+      "release_date": "2026-02-26 11:33:50"
+    }
+  ]
 }
