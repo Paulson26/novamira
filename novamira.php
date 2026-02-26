@@ -11,7 +11,7 @@ declare(strict_types=1);
  * Description: MCP server that gives AI agents full access to WordPress through PHP execution and filesystem operations. For development and staging environments only.
  * Version: 1.0.0-rc1
  * Requires at least: 6.9
- * Requires PHP: 7.4
+ * Requires PHP: 8.0
  * Author: Dynamic.ooo
  * Author URI: https://www.novamira.ai
  * License: AGPL-3.0-or-later
