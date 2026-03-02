@@ -264,11 +264,13 @@ function novamira_build_configs(string $rest_url, string $username, string $disp
 
     $mcp_servers_json = (string) json_encode(['mcpServers' => [$mcp_name => $npx_server]], $opts);
 
+    $sq = static fn(string $v): string => "'" . str_replace(search: "'", replace: "'\\''", subject: $v) . "'";
+
     $claude_code_cmd = implode(" \\\n  ", [
-        'claude mcp add ' . $mcp_name,
-        '--env WP_API_URL=' . $rest_url,
-        '--env WP_API_USERNAME=' . $username,
-        '--env WP_API_PASSWORD=' . $display_password,
+        'claude mcp add ' . $sq($mcp_name),
+        '--env WP_API_URL=' . $sq($rest_url),
+        '--env WP_API_USERNAME=' . $sq($username),
+        '--env WP_API_PASSWORD=' . $sq($display_password),
         '-- npx -y @automattic/mcp-wordpress-remote@latest',
     ]);
 
