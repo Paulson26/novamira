@@ -1,5 +1,6 @@
 bin/**
 build/**
+.github/**
 docs/**
 vendor/php-stubs/**
 vendor/bin/**
