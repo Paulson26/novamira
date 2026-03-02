@@ -247,6 +247,54 @@ function novamira_build_npx_server(string $rest_url, string $username, string $d
     ];
 }
 
+/** @param array<string, mixed> $npx_server */
+function novamira_build_zed_json(string $mcp_name, array $npx_server, int $opts): string
+{
+    return (string) json_encode(['context_servers' => [$mcp_name => array_merge([
+        'source' => 'custom',
+        'enabled' => true,
+    ], $npx_server)]], $opts);
+}
+
+function novamira_build_opencode_json(
+    string $mcp_name,
+    string $rest_url,
+    string $username,
+    string $display_password,
+    int $opts,
+): string {
+    return (string) json_encode([
+        'mcp' => [
+            $mcp_name => [
+                'type' => 'local',
+                'command' => ['npx', '-y', '@automattic/mcp-wordpress-remote@latest'],
+                'environment' => [
+                    'WP_API_URL' => $rest_url,
+                    'WP_API_USERNAME' => $username,
+                    'WP_API_PASSWORD' => $display_password,
+                ],
+            ],
+        ],
+    ], $opts);
+}
+
+function novamira_build_claude_code_cmd(
+    string $mcp_name,
+    string $rest_url,
+    string $username,
+    string $display_password,
+): string {
+    $sq = static fn(string $v): string => "'" . str_replace(search: "'", replace: "'\\''", subject: $v) . "'";
+
+    return implode(" \\\n  ", [
+        'claude mcp add ' . $sq($mcp_name),
+        '--env WP_API_URL=' . $sq($rest_url),
+        '--env WP_API_USERNAME=' . $sq($username),
+        '--env WP_API_PASSWORD=' . $sq($display_password),
+        '-- npx -y @automattic/mcp-wordpress-remote@latest',
+    ]);
+}
+
 /**
  * Build all per-client, per-transport config entries.
  *
@@ -263,16 +311,6 @@ function novamira_build_configs(string $rest_url, string $username, string $disp
     $npx_server = novamira_build_npx_server($rest_url, $username, $display_password);
 
     $mcp_servers_json = (string) json_encode(['mcpServers' => [$mcp_name => $npx_server]], $opts);
-
-    $sq = static fn(string $v): string => "'" . str_replace(search: "'", replace: "'\\''", subject: $v) . "'";
-
-    $claude_code_cmd = implode(" \\\n  ", [
-        'claude mcp add ' . $sq($mcp_name),
-        '--env WP_API_URL=' . $sq($rest_url),
-        '--env WP_API_USERNAME=' . $sq($username),
-        '--env WP_API_PASSWORD=' . $sq($display_password),
-        '-- npx -y @automattic/mcp-wordpress-remote@latest',
-    ]);
 
     /* translators: %s: config file name wrapped in <code> tags */
     $add_to = __('Add to %s.', domain: 'novamira');
@@ -318,16 +356,13 @@ function novamira_build_configs(string $rest_url, string $username, string $disp
             'isShell' => false,
         ],
         'claude-code' => [
-            'code' => $claude_code_cmd,
+            'code' => novamira_build_claude_code_cmd($mcp_name, $rest_url, $username, $display_password),
             'hint' => __('Run in your terminal.', domain: 'novamira'),
             'paths' => [],
             'isShell' => true,
         ],
         'zed' => [
-            'code' => (string) json_encode(['context_servers' => [$mcp_name => array_merge([
-                'source' => 'custom',
-                'enabled' => true,
-            ], $npx_server)]], $opts),
+            'code' => novamira_build_zed_json($mcp_name, $npx_server, $opts),
             'hint' => sprintf($add_to, '<code>settings.json</code>'),
             'paths' => [
                 'macOS / Linux' => '~/.config/zed/settings.json',
@@ -335,19 +370,7 @@ function novamira_build_configs(string $rest_url, string $username, string $disp
             'isShell' => false,
         ],
         'opencode' => [
-            'code' => (string) json_encode([
-                'mcp' => [
-                    $mcp_name => [
-                        'type' => 'local',
-                        'command' => ['npx', '-y', '@automattic/mcp-wordpress-remote@latest'],
-                        'environment' => [
-                            'WP_API_URL' => $rest_url,
-                            'WP_API_USERNAME' => $username,
-                            'WP_API_PASSWORD' => $display_password,
-                        ],
-                    ],
-                ],
-            ], $opts),
+            'code' => novamira_build_opencode_json($mcp_name, $rest_url, $username, $display_password, $opts),
             'hint' => sprintf($add_to, '<code>opencode.json</code>'),
             'paths' => [
                 __('Project', domain: 'novamira') => 'opencode.json',
