@@ -1,3 +1,6 @@
+v1.0.0-rc3 - 2026/03/03
+* Fix: Shell quoting in the Claude Code mcp add command — the MCP server URL and other env values were not properly quoted, causing syntax errors when pasting the generated command.
+
 v1.0.0-rc2 - 2026/02/26
 * Minor fixes.
 
